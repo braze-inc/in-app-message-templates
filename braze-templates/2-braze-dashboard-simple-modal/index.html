@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,17 +6,24 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Single Page Modal</title>
+    <!--
+        Instructions:
+        [ ] Copy this HTML into the Braze Dashboard IAM message composer
+        [ ] Upload and swap out all images (eg: https://via.placeholder.com/450 -> your new image URL)
+        [ ] Change the `href="#"` to `href="https://your-link" or `href="your://deeplink"`
+        [ ] Change button text
+    -->
     <style>
         /* fonts */
         @font-face {
             font-family: 'Sailec Bold';
-            src: url('https://fast.fonts.net/dv2/14/27c46a82-5633-4ad2-b344-5a8a72cbe74f.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
+            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d540126e78f1669f53229/original.otf?1596806145') format('truetype');
         }
 
         @font-face {
             font-family: 'Sailec Normal';
-            src: url('https://fast.fonts.net/dv2/14/800335be-e4e3-47e0-9306-06d3cd915d27.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
+            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d5401ff0a7415251998d6/original.otf?1596806145') format('truetype');
         }
 
         :root {
@@ -90,14 +97,17 @@
         /* Inherit fonts for inputs and buttons */
         input,
         button,
+        a,
         textarea,
         select {
             font: inherit;
         }
 
-        button {
+        button,
+        a {
             border: none;
             background-color: transparent;
+            text-decoration: none;
         }
 
         .overlay {
@@ -178,6 +188,8 @@
         .modal__btn {
             font-family: var(--header-font-stack);
             font-weight: 700;
+            color: inherit;
+            display: inline-block;
         }
 
         .modal__btn--main {
@@ -309,7 +321,8 @@
 <body>
     <div class="overlay">
         <div class="modal">
-            <button onclick="appboyBridge.closeMessage()" class="modal__cross modal__cross-mobile">
+            <button onclick="appboyBridge.logClick();appboyBridge.closeMessage()"
+                class="modal__cross modal__cross-mobile">
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
@@ -319,7 +332,8 @@
             <!-- Replace url with link to image -->
             <div class="modal__image" style="background-image: url('https://via.placeholder.com/450')"></div>
             <div class="modal__content">
-                <button onclick="appboyBridge.closeMessage()" class="modal__cross modal__cross-web">
+                <button onclick="appboyBridge.logClick();appboyBridge.closeMessage()"
+                    class="modal__cross modal__cross-web">
                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
@@ -333,8 +347,10 @@
                 <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                 <div class="modal__button-wrap">
-                    <button class="modal__btn modal__btn--secondary" type="button">Secondary Action</button>
-                    <button class="modal__btn modal__btn--main" type="button">Primary Action</button>
+                    <a href="#" onclick="appboyBridge.logClick('1');" class="modal__btn modal__btn--secondary">Secondary
+                        Action</a>
+                    <a href="#" onclick="appboyBridge.logClick('0');" class="modal__btn modal__btn--main">Primary
+                        Action</a>
                 </div>
             </div>
         </div>
