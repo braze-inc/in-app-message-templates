@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,17 +6,26 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Braze Survey Modal</title>
+  <title>Single Page Modal</title>
+  <!--
+    Instructions:
+    [ ] Copy this HTML into the Braze Dashboard IAM message composer
+    [ ] Upload and swap out all images (eg: https://via.placeholder.com/450 -> your new image URL)
+    [ ] Change the `href="#"` to `href="https://your-link" or `href="your://deeplink"`
+    [ ] Change button text
+    [ ] change "your-attribute" and "your-value" in the code for each option:
+    data-custom-attribute-name="your-attribute" data-custom-attribute-value="your-value"
+  -->
   <style>
     /* fonts */
     @font-face {
       font-family: 'Sailec Bold';
-      src: url('https://fast.fonts.net/dv2/14/27c46a82-5633-4ad2-b344-5a8a72cbe74f.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
+      src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d540126e78f1669f53229/original.otf?1596806145') format('truetype');
     }
 
     @font-face {
       font-family: 'Sailec Normal';
-      src: url('https://fast.fonts.net/dv2/14/800335be-e4e3-47e0-9306-06d3cd915d27.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
+      src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d5401ff0a7415251998d6/original.otf?1596806145') format('truetype');
     }
 
     :root {
@@ -228,7 +237,7 @@
       color: rgb(255, 255, 255);
       font-family: var(--bold-font-stack);
       font-size: 14px;
-      line-height: 40px;
+      line-height: 45px;
       text-align: center;
       cursor: pointer;
       border: none;
@@ -274,13 +283,9 @@
 </head>
 
 <body>
-  <!-- ENTER THE NAME OF YOUR CUSTOM ATTRIBUTE HERE -->
-  <!-- ENTER DISABLED TO BLOCK THE FUNCTION -->
-  <p id="custom-attribute" class="hide">DISABLED</p>
-
   <div class="overlay">
     <div class="modal" id="js-form">
-      <button class="modal__cross" onclick="appboyBridge.closeMessage()" type="button">
+      <button class="modal__cross" onclick="appboyBridge.logClick();appboyBridge.closeMessage()" type="button">
         <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.14128 2.60452L19.5705 19.3955" stroke="#5E6C75" stroke-width="3.8" />
           <path d="M19.3001 2.34807L3.41199 19.6519" stroke="#5E6C75" stroke-width="3.8" />
@@ -291,7 +296,8 @@
         ut labore et dolore magna aliqua.</p>
       <ul class="modal__survey-list">
         <li class="modal__survey-list-item">
-          <input class="modal__input" id="option-one" name="option-one" type="checkbox">
+          <input class="modal__input" id="option-one" data-custom-attribute-name="your-attribute"
+            data-custom-attribute-value="your-value" type="checkbox">
           <!-- Add option label text below -->
           <label class="modal__label" for="option-one">Lorem ipsum dolor sit amet</label>
           <svg class="modal__tick" width="14" height="10" viewBox="0 0 14 10" fill="none"
@@ -300,7 +306,8 @@
           </svg>
         </li>
         <li class="modal__survey-list-item">
-          <input class="modal__input" id="option-two" name="option-two" type="checkbox">
+          <input class="modal__input" id="option-two" data-custom-attribute-name="your-attribute"
+            data-custom-attribute-value="your-value" type="checkbox">
           <!-- Add option label text below -->
           <label class="modal__label" for="option-two">Consectetur adipiscing elit</label>
           <svg class="modal__tick" width="14" height="10" viewBox="0 0 14 10" fill="none"
@@ -309,7 +316,8 @@
           </svg>
         </li>
         <li class="modal__survey-list-item">
-          <input class="modal__input" id="option-three" name="option-three" type="checkbox">
+          <input class="modal__input" id="option-three" data-custom-attribute-name="your-attribute"
+            data-custom-attribute-value="your-value" type="checkbox">
           <!-- Add option label text below -->
           <label class="modal__label" for="option-three">Sed do eiusmod tempor incididunt</label>
           <svg class="modal__tick" width="14" height="10" viewBox="0 0 14 10" fill="none"
@@ -330,26 +338,24 @@
       const errorMessage = document.getElementById('js-error-message');
       const form = document.getElementById('js-form');
       const submitButton = document.getElementById('js-submit-button');
-      const customAttribute = document.getElementById('custom-attribute');
-      const customAttributeName = customAttribute.innerText.toLowerCase();
+      const choices = Array.from(document.querySelectorAll('[data-custom-attribute-name]'));
 
       function submitData() {
-        const optionOneValue = document.getElementById('option-one').checked;
-        const optionTwoValue = document.getElementById('option-two').checked;
-        const optionThreeValue = document.getElementById('option-three').checked;
-
-        if (!optionOneValue && !optionTwoValue && !optionThreeValue) {
+        // nothing is selected, show an error and don't submit
+        if (choices.filter(function (input) {
+          return input.checked;
+        }).length === 0) {
           errorMessage.classList.add('show');
+          return;
         }
 
-        // Change the option names here if needed (optionOne, optionTwo, optionThree)
-        const formData = {
-          optionOne: optionOneValue,
-          optionTwo: optionTwoValue,
-          optionThree: optionThreeValue,
-        };
-        console.log(formData);
-        appboyBridge.getUser().setCustomUserAttribute(customAttributeName, formData);
+        choices.forEach(function (input) {
+          const customAttributeName = input.dataset.customAttributeName;
+          const customAttributeValue = input.dataset.customAttributeValue;
+          appboyBridge.getUser().setCustomUserAttribute(customAttributeName, customAttributeValue);
+        });
+
+        appboyBridge.requestImmediateDataFlush();
         appboyBridge.closeMessage();
       }
 
