@@ -1,29 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        // Must follow this format: MM DD, YYYY HH:MM:SS
+        // TODO: set this date!
+        window.END_DATE = "2020-08-07T03:30:00Z";
+        window.FALLBACK_TEXT = "The Sale Is Over!";
+
+    </script>
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Single Page Modal</title>
-    <!--
-        Instructions:
-        [ ] Copy this HTML into the Braze Dashboard IAM message composer
-        [ ] Upload and swap out all images (eg: https://via.placeholder.com/450 -> your new image URL)
-        [ ] Change the `href="#"` to `href="https://your-link" or `href="your://deeplink"`
-        [ ] Change button text
-    -->
+    <title>Document</title>
     <style>
+        #countdown {
+            position: relative;
+            top: calc(100% - 80px);
+            height: 80px;
+            width: 100%;
+            left: 0;
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-content: center;
+        }
+
+        .countdown-fallback-text {
+            font-size: 2rem;
+            display: none;
+            line-height: 2.5;
+        }
+
+        #countdown.show-countdown-fallback .countdown-fallback-text {
+            display: block;
+        }
+
+        .countdown-slot {
+            min-width: 80px;
+            text-align: center;
+        }
+
+        #countdown.show-countdown-fallback .countdown-slot {
+            display: none;
+        }
+
+        .countdown-slot .number {
+            display: inline-block;
+            font-size: 3rem;
+        }
+
+        .countdown-slot .text {
+            margin-top: -20px;
+        }
+
+
         /* fonts */
         @font-face {
             font-family: 'Sailec Bold';
-            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d540126e78f1669f53229/original.otf?1596806145') format('truetype');
+            src: url('https://fast.fonts.net/dv2/14/27c46a82-5633-4ad2-b344-5a8a72cbe74f.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
         }
 
         @font-face {
             font-family: 'Sailec Normal';
-            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d5401ff0a7415251998d6/original.otf?1596806145') format('truetype');
+            src: url('https://fast.fonts.net/dv2/14/800335be-e4e3-47e0-9306-06d3cd915d27.woff2?d44f19a684109620e4841579af90e81815eac57c3142f7b7e65da4f4a26d35fbc393ff2afe1d1d96055662c0c40bb97945a18a6584f9cc63f9f5950bd2e10256841b2e13c4fb5b123262dea024331ee4b75ef95558e0aee11d52d91de14d7ebc5bf05da7da4a7a0dae2df800&projectId=34a7ffbc-6962-4ab8-b4f5-9aa2b4258efc') format('woff2');
         }
 
         :root {
@@ -97,17 +138,14 @@
         /* Inherit fonts for inputs and buttons */
         input,
         button,
-        a,
         textarea,
         select {
             font: inherit;
         }
 
-        button,
-        a {
+        button {
             border: none;
             background-color: transparent;
-            text-decoration: none;
         }
 
         .overlay {
@@ -188,9 +226,6 @@
         .modal__btn {
             font-family: var(--header-font-stack);
             font-weight: 700;
-            color: inherit;
-            display: inline-block;
-            text-align: center;
         }
 
         .modal__btn--main {
@@ -213,6 +248,7 @@
 
         /*Phones*/
         @media (max-width: 900px) {
+
             .modal {
                 height: auto;
                 max-width: 330px;
@@ -331,8 +367,34 @@
                 </svg>
             </button>
             <!-- Replace url with link to image -->
-            <div class="modal__image" style="background-image: url('https://via.placeholder.com/450')"></div>
+            <div class="modal__image" style="background-image: url('https://via.placeholder.com/450')">
+                <div id="countdown">
+                    <div class="countdown-fallback-text"></div>
+                    <div class="countdown-slot" id="countdown-months">
+                        <div class="number"></div>
+                        <div class="text">months</div>
+                    </div>
+                    <div class="countdown-slot" id="countdown-days">
+                        <div class="number"></div>
+                        <div class="text">days</div>
+                    </div>
+                    <div class="countdown-slot" id="countdown-hours">
+                        <div class="number"></div>
+                        <div class="text">hours</div>
+                    </div>
+                    <div class="countdown-slot" id="countdown-minutes">
+                        <div class="number"></div>
+                        <div class="text">minutes</div>
+                    </div>
+                    <div class="countdown-slot" id="countdown-seconds">
+                        <div class="number"></div>
+                        <div class="text">seconds</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal__content">
+
                 <button onclick="appboyBridge.logClick();appboyBridge.closeMessage()"
                     class="modal__cross modal__cross-web">
                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -348,14 +410,52 @@
                 <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                 <div class="modal__button-wrap">
-                    <a href="#" onclick="appboyBridge.logClick('1');" class="modal__btn modal__btn--secondary">Secondary
-                        Action</a>
-                    <a href="#" onclick="appboyBridge.logClick('0');" class="modal__btn modal__btn--main">Primary
-                        Action</a>
+                    <button onclick="appboyBridge.logClick('1');" class="modal__btn modal__btn--secondary"
+                        type="button">Secondary Action</button>
+                    <button onclick="appboyBridge.logClick('0');" class="modal__btn modal__btn--main"
+                        type="button">Primary Action</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        (function () {
+            document.querySelector('.countdown-fallback-text').innerText = window.FALLBACK_TEXT;
+            setInterval(calculate, 1e3);
+            calculate();
+            function calculate() {
+                var today = new Date();
+                var difference = new Date(window.END_DATE) - today;
+                if (difference < 0) {
+                    document.querySelector("#countdown").classList.add('show-countdown-fallback');
+                    return;
+                }
+                var parts = {
+                    months: Math.floor(difference / (1000 * 60 * 60 * 24 * 31)),
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                    seconds: Math.floor((difference / 1000) % 60)
+                };
+
+                updateNumber("#countdown-months", parts.months, true);
+                updateNumber("#countdown-days", parts.days);
+                updateNumber("#countdown-hours", parts.hours);
+                updateNumber("#countdown-minutes", parts.minutes);
+                updateNumber("#countdown-seconds", parts.seconds);
+            }
+
+            function updateNumber(selector, value, hide_if_zero) {
+                var element = document.querySelector(selector);
+                if (!value && hide_if_zero) {
+                    element.style.display = 'none';
+                } else {
+                    element.querySelector('.number').innerText = value;
+                }
+            }
+        })();
+    </script>
 </body>
 
 </html>

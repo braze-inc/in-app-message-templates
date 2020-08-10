@@ -201,6 +201,7 @@
             font-weight: 700;
             color: inherit;
             display: inline-block;
+            text-align: center;
         }
 
         .modal__btn--main {
@@ -498,20 +499,20 @@
     <script
         src="https://appboy-images.com/appboy/communication/assets/code_assets/files/5f2d589683566823fc373ec4/original.js?1596807318"></script>
     <script>
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
-        const slideOneToggle = document.getElementById('js-slide-one-toggle');
-        const slideTwoToggle = document.getElementById('js-slide-two-toggle');
-        const slideThreeToggle = document.getElementById('js-slide-three-toggle');
-        const slideToggles = document.querySelectorAll('.js-slide-toggle');
-        const mySiema = new Siema({
+        var prev = document.querySelector('.prev');
+        var next = document.querySelector('.next');
+        var slideOneToggle = document.getElementById('js-slide-one-toggle');
+        var slideTwoToggle = document.getElementById('js-slide-two-toggle');
+        var slideThreeToggle = document.getElementById('js-slide-three-toggle');
+        var slideToggles = document.querySelectorAll('.js-slide-toggle');
+        var mySiema = new Siema({
             duration: 350,
             loop: true,
-            onChange: () => updateCurrentSlideState(),
+            onChange: updateCurrentSlideState,
         });
 
         function updateCurrentSlideState() {
-            slideToggles.forEach((slideToggle, i) => {
+            slideToggles.forEach(function (slideToggle, i) {
                 if (mySiema.currentSlide === i) {
                     slideToggle.classList.add('is-active');
                 } else {
@@ -533,11 +534,21 @@
             }
         }
 
-        prev.addEventListener('click', () => mySiema.prev(1));
-        next.addEventListener('click', () => mySiema.next(1));
-        slideOneToggle.addEventListener('click', () => goToSlide(0));
-        slideTwoToggle.addEventListener('click', () => goToSlide(1));
-        slideThreeToggle.addEventListener('click', () => goToSlide(2));
+        prev.addEventListener('click', function () {
+            mySiema.prev(1);
+        });
+        next.addEventListener('click', function () {
+            mySiema.next(1);
+        });
+        slideOneToggle.addEventListener('click', function () {
+            goToSlide(0);
+        });
+        slideTwoToggle.addEventListener('click', function () {
+            goToSlide(1);
+        });
+        slideThreeToggle.addEventListener('click', function () {
+            goToSlide(2);
+        });
         document.addEventListener('keydown', nextByKeyDown);
     </script>
 </body>

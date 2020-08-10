@@ -335,10 +335,10 @@
       </form>
     </div>
     <script>
-      const errorMessage = document.getElementById('js-error-message');
-      const form = document.getElementById('js-form');
-      const submitButton = document.getElementById('js-submit-button');
-      const choices = Array.from(document.querySelectorAll('[data-custom-attribute-name]'));
+      var errorMessage = document.getElementById('js-error-message');
+      var form = document.getElementById('js-form');
+      var submitButton = document.getElementById('js-submit-button');
+      var choices = Array.from(document.querySelectorAll('[data-custom-attribute-name]'));
 
       function submitData() {
         // nothing is selected, show an error and don't submit
@@ -350,8 +350,8 @@
         }
 
         choices.forEach(function (input) {
-          const customAttributeName = input.dataset.customAttributeName;
-          const customAttributeValue = input.dataset.customAttributeValue;
+          var customAttributeName = input.dataset.customAttributeName;
+          var customAttributeValue = input.dataset.customAttributeValue;
           appboyBridge.getUser().setCustomUserAttribute(customAttributeName, customAttributeValue);
         });
 
