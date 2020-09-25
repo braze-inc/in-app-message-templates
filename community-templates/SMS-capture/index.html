@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phone Capture Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--
+        Instructions:
+        [ ] Copy this HTML into the Braze Dashboard IAM message composer
+        [ ] Change text
+        [ ] Change button text
+    -->
+    <style>
+      .iti__flag {
+	background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/img/flags.png");
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+	.iti__flag {
+		background-image: url("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/img/flags@2x.png");
+	}
+}
+
+/* fonts */
+
+@font-face {
+	font-family: 'Sailec Bold';
+	src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d540126e78f1669f53229/original.otf?1596806145') format('truetype');
+}
+
+@font-face {
+	font-family: 'Sailec Normal';
+	src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d5401ff0a7415251998d6/original.otf?1596806145') format('truetype');
+}
+::-webkit-input-placeholder {
+	color: #BBB;
+}
+
+::-moz-placeholder {
+	/* Firefox 19+ */
+	color: #BBB;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: #BBB;
+}
+:root {
+	--bold-font-stack: 'Sailec Bold', helvetica, arial, sans-serif;
+	--normal-font-stack: 'Sailec Normal', helvetica, arial, sans-serif;
+	--accent-color: #0099AE;
+	--text-color: #101B24;
+}
+
+/* Box sizing rules */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Remove default padding */
+
+ul,
+ol {
+	padding: 0;
+}
+
+/* Remove default margin */
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+/* Set core body defaults */
+
+body {
+	min-height: 100vh;
+	scroll-behavior: smooth;
+	text-rendering: optimizeSpeed;
+	color: var(--text-color);
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.iti__hide {
+	display: none;
+}
+
+pre {
+	margin: 0 !important;
+	display: inline-block;
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	background: none;
+}
+input,
+button {
+	height: 35px;
+	margin: 0;
+	padding: 6px 12px;
+	border-radius: 2px;
+	font-family: inherit;
+	font-size: 100%;
+	color: inherit;
+}
+input[disabled],
+button[disabled] {
+	background-color: #eee;
+}
+input,
+select {
+	border: 1px solid #CCC;
+	width: 250px;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+
+ul[class],
+ol[class] {
+	list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+
+article > * + * {
+	margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+input[type="tel"]:focus {   
+  border-color: var(--accent-color);
+  border-width: 2px;
+  outline: 0 none;
+}
+
+.overlay {
+	display: flex;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(46, 60, 71, 0.7);
+	z-index: 99999;
+	overflow: scroll;
+}
+.modal {
+	position: relative;
+	max-width: 450px;
+	flex-basis: 450px;
+	margin: auto;
+  border-width: 3px;
+	border-radius: 5px;
+	padding: 64px 32px 32px;
+	background-color: rgb(255, 255, 255);
+  border: 2px solid var(--accent-color);
+  border-bottom: 7px solid var(--accent-color);
+}
+.modal__cross {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+.modal__cross,
+.modal__cross svg {
+	height: 22px;
+	width: 22px;
+}
+.modal__title {
+	margin-bottom: 12px;
+	font-family: var(--bold-font-stack);
+	font-size: 24px;
+	line-height: 30px;
+}
+.modal__text {
+	margin-bottom: 24px;
+	font-family: var(--normal-font-stack);
+	font-size: 14px;
+	line-height: 21px;
+}
+.modal__input {
+  position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+.modal__opt-in {
+      position: relative;
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .modal__input-check {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 0;
+      width: 0;
+    }
+    
+    .modal__input-check:checked+.modal__label:before {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .modal__input-check:checked+.modal__label+.modal__tick {
+      display: block;
+    } 
+
+    .modal__label {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 8px;
+      font-family: var(--normal-font-stack);
+      font-size: 14px;
+      line-height: 21px;
+      cursor: pointer;
+    }
+
+    .modal__label:before {
+      content: "";
+      display: block;
+      height: 20px;
+      width: 20px;
+      border: 1px solid #A8B3B8;
+      border-radius: 3px;
+      margin-right: 20px;
+    }
+
+    .modal__tick {
+      display: none;
+      position: absolute;
+      top: 60%;
+      transform: translateY(-50%);
+      left: 12px;
+      width: 13px;
+      height: 10px;
+    }
+    
+.modal__button-wrap {
+	display: flex;
+	justify-content: flex-end;
+	border: none;
+}
+.modal__button-error {
+	margin-top: 20px;
+	width: 140px;
+	height: 40px;
+	background-color: var(--accent-color);
+	color: rgb(255, 255, 255);
+	font-family: var(--bold-font-stack);
+	font-size: 14px;
+	text-align: center;
+	opacity: 0.6;
+	border: none;
+	pointer-events: none;
+}
+.modal__button-valid {
+	margin-top: 20px;
+	width: 140px;
+	height: 40px;
+	background-color: var(--accent-color);
+	color: rgb(255, 255, 255);
+	font-family: var(--bold-font-stack);
+	font-size: 14px;
+	text-align: center;
+	border: none;
+}
+.modal__error-message {
+	margin-top: 10px;
+	color: rgb(255, 58, 93);
+	font-family: var(--normal-font-stack);
+	font-size: 12px;
+  text-align: center;
+}
+.hide {
+	display: none !important;
+}
+#result {
+	margin-bottom: 100px;
+}
+#error-msg {
+	color: red;
+  font-family: var(--normal-font-stack);
+}
+input.error {
+	border: 1px solid #FF7C7C;
+}
+
+/* iPads */
+
+@media (max-width: 900px) {
+	.modal {
+		height: auto;
+		max-width: 330px;
+		flex-basis: 330px;
+		margin: auto;
+		padding: 56px 16px 24px;
+	}
+	.modal__button-wrap {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+/* desktop */
+
+@media (min-width: 901px) {
+	.modal {
+		height: auto;
+		max-width: 500px;
+		flex-basis: 500px;
+		margin: auto;
+		padding: 56px 16px 24px;
+	}
+	.modal__button-wrap {
+		display: flex;
+		justify-content: center;
+	}
+}
+    </style>
+		</head>
+		<body>
+			<div class="overlay">
+				<div class="modal">
+					<button class="modal__cross" onclick="appboyBridge.logClick();appboyBridge.closeMessage()" type="button">
+						<svg width="23" height="22" viewBox="0 0 23 22" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+							<path d="M3.14128 2.60452L19.5705 19.3955" stroke="#5E6C75" stroke-width="3.8" />
+							<path d="M19.3001 2.34807L3.41199 19.6519" stroke="#5E6C75" stroke-width="3.8" />
+						</svg>
+					</button>
+					<h1 class="modal__title">SMS Capture</h1>
+					<p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        ut labore et dolore magna aliqua.</p>
+					<div id="main">
+						<div class="modal__input">
+							<p id="output" class="hide"></p>
+							<input id="phone" type="tel" name="phone">
+							</div>
+							<div class="modal__error-message">
+								<p>
+									<span id="error-msg"></span>
+								</p>
+							</div>
+              <div class="modal__opt-in">
+                 <input class="modal__input-check" id="opt-in" type="checkbox">
+          <!-- Add option label text below -->
+          <label class="modal__label" for="opt-in">Opt-in! Lorem ipsum dolor sit amet</label>
+          <svg class="modal__tick" width="14" height="10" viewBox="0 0 14 10" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 4.22412L5.1709 8.41309L12.4143 1" stroke="white" stroke-width="2" />
+          </svg>
+              </div>
+							<div class="modal__button-wrap">
+								<span id="valid-msg" class="hide">
+									<button class="modal__button-valid" type="submit" onclick="var phoneField = document.getElementById('output').innerHTML;
+            appboyBridge.getUser().setPhoneNumber(phoneField);
+            appboyBridge.logClick(0);
+            appboyBridge.requestImmediateDataFlush();
+            show('thankYou');
+            ">SUBMIT</button>
+								</span>
+								<button id="placeholder" class="modal__button-error" type="submit">SUBMIT</button>
+							</div>
+						</div>
+					</div>
+					<div id=thankYou class="hide">
+						<p class="modal__text">Thank you! Lorem ipsum</p>
+					</div>
+				</div>
+			  <script>
+$('html').bind('keypress', function(e) {
+  if (e.keyCode == 13) {
+    return false;
+  }
+});
+
+function show(param_div_id) {
+  document.getElementById('main').innerHTML = document.getElementById(param_div_id).innerHTML;
+}
+var input = document.querySelector("#phone"),
+  errorMsg = document.querySelector("#error-msg"),
+  validMsg = document.querySelector("#valid-msg"),
+  placeholder = document.querySelector("#placeholder"),
+  output = document.querySelector("#output"),
+  optin = document.querySelector("#opt-in");
+  
+var checkBox = document.getElementById("opt-in");
+
+var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+var iti = window.intlTelInput(input, {
+  nationalMode: true,
+  hiddenInput: 'full',
+  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+});
+var reset = function() {
+  input.classList.remove("error");
+  errorMsg.innerHTML = "";
+  errorMsg.classList.add("hide");
+  validMsg.classList.add("hide");
+  placeholder.classList.remove("hide");
+};
+var handleChange = function() {
+  var text = (iti.isValidNumber()) ? iti.getNumber() : "Please enter a number below";
+  var textNode = document.createTextNode(text);
+  output.innerHTML = "";
+  output.appendChild(textNode);
+};
+window.intlTelInputGlobals.loadUtils("https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js");
+input.addEventListener('blur', function() {
+  reset();
+  if (input.value.trim()) {
+    if (iti.isValidNumber() && document.getElementById('opt-in').checked) {
+      validMsg.classList.remove("hide");
+      placeholder.classList.add("hide");
+    }
+    else if (iti.isValidNumber()) {
+      }
+    else {
+      input.classList.add("error");
+      var errorCode = iti.getValidationError();
+      errorMsg.innerHTML = errorMap[errorCode];
+      errorMsg.classList.remove("hide");
+    }
+  }
+});
+checkBox.addEventListener('change', function() {
+  reset();
+  if (checkBox.checked == true) {
+    if (iti.isValidNumber()) {
+      validMsg.classList.remove("hide");
+      placeholder.classList.add("hide");
+    }
+    else if (input.value === "" ) {
+      }
+    else {
+      input.classList.add("error");
+      var errorCode = iti.getValidationError();
+      errorMsg.innerHTML = errorMap[errorCode];
+      errorMsg.classList.remove("hide");
+    }
+  }
+});
+input.addEventListener('change', handleChange);
+input.addEventListener('keyup', handleChange);
+
+			  </script>
+			</body>
+		</html>
