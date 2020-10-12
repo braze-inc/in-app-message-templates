@@ -1,12 +1,22 @@
 <!DOCTYPE html>
+<!-- This is a capture form for you to use with Braze's custom HTML-5 In-App and In-Browser messages. This form consists of multiple fields, which you can toggle on/off below. Validations are in place to ensure required fields are submitted properly -->
 <html lang="en">
-  <!-- Turn elements on/off using the script at the bottom of this document -->
 
   <head>
+    <script>
+      // Turn elements on/off by switching the variables below between true and false
+      var showFullName = true,
+        showEmail = true,
+        showPhone = true,
+        showCompany = true,
+        showCountry = false,
+        showOptIn = true;
+
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Web Capture Form</title>
+    <title>Capture Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -530,11 +540,11 @@
             <path d="M19.3001 2.34807L3.41199 19.6519" stroke="#5E6C75" stroke-width="3.8" />
           </svg>
         </button>
-        <h1 class="modal__title">Lead Capture Form</h1>
-        <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+        <h1 id="title" class="modal__title">Capture Form</h1>
+        <p id="description" class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua.</p>
         <div id="main">
-          <form id='form' onsubmit="submitBraze()">
+          <form id='form' onsubmit="event.preventDefault(); showConfirmation(); submitBraze()">
             <div id='div__fullName'>
               <label class="modal__label">Full name</label>
               <input class="modal__input-half" id="fname" type="text" name="fname" placeholder="First Name">
@@ -824,9 +834,10 @@
             </div>
           </form>
         </div>
-      </div>
-      <div id=thankYou class="hide">
-        <p class="modal__text">Thank you! Lorem ipsum</p>
+        <div id="confirmation" style="display:none">
+          <h1 class="modal__title">Thank you!</h1>
+          <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
       </div>
     </div>
 
@@ -863,7 +874,7 @@
 
     </script>
     <script>
-      // check if company is bigger than 3
+      // Validate Company
 
       var resetCompany = function() {
         company.classList.remove("error");
@@ -937,13 +948,13 @@
 
     </script>
     <script>
-      //disable button script
+      //disable submit button by default
       $('#submit').prop("disabled", true);
-      // submit button
+      // function to reset submit button to true
       var resetSubmit = function() {
         $('#submit').prop("disabled", true);
       };
-      // If you re
+      // On blur, check if form is valid. This is based on a combination of whether the input is shown vs. hidden, and valid vs. not. 
       $(":input").on("blur", function() {
         resetSubmit();
         if ($("#div__email").css('display') == 'none') {
@@ -973,7 +984,7 @@
 
     </script>
     <script>
-      //submit to Braze
+      // submit data to Braze
       function submitBraze() {
         var fName = $("#fname").val(),
           lName = $("#lname").val(),
@@ -1010,14 +1021,51 @@
 
     </script>
     <script>
-      // Turn form elements on or off by toggling between "show" and "hide"
-      $("#div__fullName").show()
-      $("#div__email").show()
-      $("#div__tel").show()
-      $("#div__company").show()
-      $("#div__country").show()
-      $("#div__optin").show()
-      // end toggle
+      // show confirmation message
+      function showConfirmation() {
+        var confirmation = document.getElementById("confirmation");
+        var title = document.getElementById("title");
+        var description = document.getElementById("description");
+        var main = document.getElementById("main");
+        confirmation.style.display = '';
+        title.style.display = 'none';
+        description.style.display = 'none';
+        main.style.display = 'none'
+      }
+
+    </script>
+    <script>
+      // toggle form elements on/off based on global variables in HTML head
+      if (showFullName == true) {
+        $("#div__fullName").show()
+      } else {
+        $("#div__fullName").hide()
+      }
+      if (showEmail == true) {
+        $("#div__email").show()
+      } else {
+        $("#div__email").hide()
+      }
+      if (showPhone == true) {
+        $("#div__tel").show()
+      } else {
+        $("#div__tel").hide()
+      }
+      if (showCompany == true) {
+        $("#div__company").show()
+      } else {
+        $("#div__company").hide()
+      }
+      if (showCountry == true) {
+        $("#div__country").show()
+      } else {
+        $("#div__country").hide()
+      }
+      if (showOptIn == true) {
+        $("#div__optin").show()
+      } else {
+        $("#div__optin").hide()
+      }
 
     </script>
   </body>
