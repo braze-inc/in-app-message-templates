@@ -33,8 +33,8 @@ The following templates are all mobile and desktop responsive! Simply swap out t
 | [Braze Carousel Modal][101] | :iphone: :computer: | Swipe through multiple pages of images and text | [<img alt="screenshot" src="braze-templates/1-braze-dashboard-carousel-modal/screenshot.gif" width="200" />][101]|
 | [Braze Simple Modal][102] | :iphone: :computer: | A single image and text modal | [<img alt="screenshot" src="braze-templates/2-braze-dashboard-simple-modal/screenshot.png" width="200" />][102] |
 | [Braze Survey Modal][103] | :iphone: :computer: | A survey templates which logs custom attributes for retargeting. | [<img alt="screenshot" src="braze-templates/3-braze-dashboard-survey-modal/mobile.png" height="300"/>][103] |
-| [Braze SMS Modal][103] | :iphone: :computer: | Collect phone numbers to use with Braze SMS. | [<img alt="screenshot" src="braze-templates/4-sms-capture-modal/screenshot.gif" width="300"/>][103] |
-| [Braze Email Capture Modal][103] | :iphone: :computer: | Collect email addresses to use within Braze. | [<img alt="screenshot" src="braze-templates/5-email-capture-modal/screenshot.gif" width="300"/>][103] |
+| [Braze SMS Modal][104] | :iphone: :computer: | Collect phone numbers to use with Braze SMS. | [<img alt="screenshot" src="braze-templates/4-sms-capture-modal/screenshot.gif" width="300"/>][103] |
+| [Braze Email Capture Modal][105] | :iphone: :computer: | Collect email addresses to use within Braze. | [<img alt="screenshot" src="braze-templates/5-email-capture-modal/screenshot.gif" width="300"/>][103] |
 
 ## Community Gallery
 
@@ -59,3 +59,5 @@ To view our legacy templates which used `.zip` files, [click here][5].
 [101]: braze-templates/1-braze-dashboard-carousel-modal
 [102]: braze-templates/2-braze-dashboard-simple-modal
 [103]: braze-templates/3-braze-dashboard-survey-modal
+[104]: braze-templates/4-sms-capture-modal
+[105]: braze-templates/5-email-capture-modal
