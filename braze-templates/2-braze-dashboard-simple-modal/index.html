@@ -365,13 +365,6 @@
     </div>
 
     <script>
-        document.querySelectorAll('.close-button').forEach(function (node) {
-            node.addEventListener('click', function () {
-                appboyBridge.logClick('close');
-                appboyBridge.closeMessage();
-            });
-        });
-
         document.querySelectorAll('[data-button-id]').forEach(function (node) {
             node.addEventListener('click', function () {
                 appboyBridge.logClick(node.dataset.buttonId);
