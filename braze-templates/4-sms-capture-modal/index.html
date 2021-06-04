@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up For SMS</title>
+
+    <link rel="stylesheet"
+        href="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba51719f0008703e7f9a6c/original.css?1622823281">
+    <script
+        src="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5172f9088d5409485a16/original.js?1622823282"></script>
+    <script
+        src="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba51744941b5318d0ba85f/original.js?1622823284"></script>
+    <!--
+        Instructions:
+        [ ] Copy this HTML into the Braze Dashboard IAM message composer
+        [ ] Upload and swap out all images (eg: https://via.placeholder.com/450 -> your new image URL)
+        [ ] Change the `href="#"` to `href="https://your-link" or `href="your://deeplink"`
+        [ ] Change button text
+    -->
+
+    <!-- phone input  -->
+    <style>
+        .iti__flag {
+            background-image: url("https://appboy-images.com/appboy/communication/assets/image_assets/images/60ba5190f9088d2b4c48594b/original.png?1622823312");
+        }
+
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+            .iti__flag {
+                background-image: url("https://appboy-images.com/appboy/communication/assets/image_assets/images/60ba51a19f000878b37f9a4f/original.png?1622823329");
+            }
+        }
+
+        #error {
+            margin-top: 4px;
+            font-size: 14px;
+            color: #FF7C7C;
+            visibility: hidden;
+        }
+
+        input.error {
+            border: 1px solid #FF7C7C;
+        }
+
+        input[type="tel"]:focus {
+            border-color: var(--accent-color);
+            border-width: 2px;
+            outline: 0 none;
+        }
+
+        .iti__hide {
+            display: none;
+        }
+
+        pre {
+            margin: 0 !important;
+            display: inline-block;
+        }
+
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string,
+        .token.variable {
+            background: none;
+        }
+
+        input {
+            height: 35px;
+            margin: 0;
+            padding: 6px 12px;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 100%;
+            color: inherit;
+        }
+
+        input[disabled],
+        button[disabled] {
+            background-color: #bfbebe;
+        }
+
+        input,
+        select {
+            border: 1px solid #CCC;
+            width: 250px;
+        }
+
+        .input__container {
+            margin: 14px 8px 0;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Checkbox CSS -->
+    <style>
+        :root {
+            --bold-font-stack: 'Sailec Bold', helvetica, arial, sans-serif;
+            --normal-font-stack: 'Sailec Normal', helvetica, arial, sans-serif;
+            --accent-color: #0099AE;
+            --text-color: #101B24;
+        }
+
+        .modal__survey-list {
+            margin-bottom: 10px;
+        }
+
+        .modal__survey-list-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal__survey-list-item+.modal__survey-list-item {
+            margin-top: 8px;
+        }
+
+        .modal__input {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 0;
+            width: 0;
+        }
+
+        .modal__input:checked+.modal__label:before {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .modal__input:checked+.modal__label+.modal__tick {
+            display: block;
+        }
+
+        .modal__label {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 8px;
+            font-family: var(--normal-font-stack);
+            font-size: 14px;
+            line-height: 21px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .modal__label:before {
+            content: "";
+            display: block;
+            height: 32px;
+            width: 32px;
+            border: 1px solid #A8B3B8;
+            border-radius: 3px;
+            margin-right: 20px;
+        }
+
+        .modal__tick {
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 18px;
+            width: 13px;
+            height: 10px;
+            pointer-events: none;
+        }
+
+        #thankyou {
+            display: none;
+        }
+    </style>
+
+    <style>
+        /* fonts */
+        @font-face {
+            font-family: 'Sailec Bold';
+            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d540126e78f1669f53229/original.otf?1596806145') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Sailec Normal';
+            src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5f2d5401ff0a7415251998d6/original.otf?1596806145') format('truetype');
+        }
+
+        :root {
+            --header-font-stack: 'Sailec Bold', helvetica, arial, sans-serif;
+            --body-font-stack: 'Sailec Normal', helvetica, arial, sans-serif;
+        }
+
+        /* Box sizing rules */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        /* Remove default padding */
+        ul[class],
+        ol[class] {
+            padding: 0;
+        }
+
+        /* Remove default margin */
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        ul[class],
+        ol[class],
+        li,
+        figure,
+        figcaption,
+        blockquote,
+        dl,
+        dd {
+            margin: 0;
+        }
+
+        /* Set core body defaults */
+        body {
+            min-height: 100vh;
+            scroll-behavior: smooth;
+            text-rendering: optimizeSpeed;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Remove list styles on ul, ol elements with a class attribute */
+        ul[class],
+        ol[class] {
+            list-style: none;
+        }
+
+        /* A elements that don't have a class get default styles */
+        a:not([class]) {
+            text-decoration-skip-ink: auto;
+        }
+
+        /* Make images easier to work with */
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Natural flow and rhythm in articles by default */
+        article>*+* {
+            margin-top: 1em;
+        }
+
+        /* Inherit fonts for inputs and buttons */
+        input,
+        button,
+        a,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button,
+        a {
+            border: none;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        .overlay {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+        }
+
+        .modal {
+            display: flex;
+            height: 450px;
+            max-width: 900px;
+            flex-basis: 900px;
+            margin: auto;
+        }
+
+        .modal__image {
+            height: 450px;
+            max-width: 450px;
+            flex-basis: 450px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .modal__content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 450px;
+            max-width: 450px;
+            flex-basis: 450px;
+            padding: 60px 40px 40px;
+            background-color: rgb(255, 255, 255);
+            font-family: var(--body-font-stack);
+        }
+
+        .modal__cross {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            height: 34px;
+            width: 34px;
+            cursor: pointer;
+        }
+
+        .modal__title {
+            width: 300px;
+            margin-bottom: 10px;
+            font-size: 36px;
+            line-height: 1.2;
+            color: #101B24;
+            font-family: var(--header-font-stack);
+        }
+
+        .modal__sub-title {
+            margin-bottom: 10px;
+            font-family: var(--header-font-stack);
+            font-size: 16px;
+            color: #76848C;
+        }
+
+        .modal__text {
+            font-family: var(--body-font-stack);
+            font-size: 14px;
+            color: #101B24;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .modal__button-wrap {
+            margin-top: auto;
+            justify-content: start;
+            display: flex;
+        }
+
+        .modal__btn {
+            font-family: var(--header-font-stack);
+            font-weight: 700;
+            color: inherit;
+            min-height: 50px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            min-width: 140px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .modal__btn[disabled] {
+            cursor: default;
+        }
+
+        .modal__btn--main {
+            margin-left: 10px;
+            padding: 8px 16px;
+            background-color: #0099AE;
+            color: rgb(255, 255, 255);
+            font-size: 14px;
+        }
+
+        .modal__btn--secondary {
+            padding: 8px 16px;
+            border: 1px solid #A8B3B8;
+            font-size: 14px;
+        }
+
+        .modal__cross-mobile {
+            display: none !important;
+        }
+
+        /*Phones*/
+        @media (max-width: 900px) {
+            .modal {
+                height: auto;
+                max-width: 330px;
+                flex-basis: 330px;
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .modal__cross-mobile {
+                border-radius: 50%;
+                background: white;
+                display: flex !important;
+                justify-content: center;
+                padding: 1px;
+            }
+
+            .modal__cross-web {
+                display: none !important;
+            }
+
+            .modal__title,
+            .modal__sub-title {
+                margin-bottom: 8px;
+            }
+
+            .modal__title {
+                font-size: 23px;
+            }
+
+            .modal__image {
+                height: 330px;
+                flex-basis: 330px;
+            }
+
+            .modal__content {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                height: auto;
+                max-width: 330px;
+                flex-basis: auto;
+                padding: 24px 16px 24px 16px;
+                background-color: rgb(255, 255, 255);
+            }
+
+            /* .modal__button-wrap {
+                display: flex;
+                margin-top: 24px;
+                margin-left: 0px;
+                justify-content: space-between;
+            } */
+
+            .modal__btn {
+                width: 140px;
+                padding: 8px 8px;
+            }
+
+            .modal__carousel-toggle {
+                background-color: transparent;
+            }
+
+            .modal__carousel-navigation.is-active {
+                background-color: white;
+            }
+        }
+
+        @media (orientation: landscape) and (max-width: 900px) {
+            .modal {
+                max-width: 660px;
+                flex-basis: 660px;
+            }
+
+            .modal {
+                display: flex;
+                flex-direction: row;
+                height: 330px;
+                margin: auto;
+            }
+
+            .modal__cross {
+                right: unset;
+                left: 14px;
+            }
+        }
+
+        @media (orientation: landscape) and (max-width: 569px) {
+            .modal {
+                max-width: 568px;
+                flex-basis: 568px;
+            }
+
+            .overlay {
+                overflow-y: scroll;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .overlay {
+                overflow-y: scroll;
+            }
+        }
+
+        .image-1 {
+            background-image: url('https://via.placeholder.com/450');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay">
+        <div class="modal">
+            <button data-button-id="close" class="modal__cross modal__cross-mobile">
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
+                        fill="#A8B3B8" />
+                </svg>
+            </button>
+            <div class="modal__image image-1"></div>
+            <div class="modal__content" id="form">
+                <button data-button-id="close" class="modal__cross modal__cross-web">
+                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
+                            fill="#A8B3B8" />
+                    </svg>
+                </button>
+                <h1 class="modal__title">This is where the modal title goes</h1>
+                <!-- <h2 class="modal__sub-title">Sub head maybe here that is not too long</h2> -->
+                <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+
+                <div class="input__container">
+                    <input id="phone" type="tel" name="phone">
+                    <div class="modal__error-message" id="error">placeholder</div>
+                </div>
+                <div class="modal__survey-list">
+                    <div class="modal__survey-list-item">
+                        <input class="modal__input" id="optin" type="checkbox">
+                        <!-- Add option label text below -->
+                        <label class="modal__label" for="optin">Opt-in text goes here</label>
+                        <svg class="modal__tick" width="14" height="10" viewBox="0 0 14 10" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 4.22412L5.1709 8.41309L12.4143 1" stroke="white" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="modal__button-wrap">
+                    <button disabled id="submit" class="modal__btn modal__btn--main" data-button-id="0">Get
+                        Updates!</button>
+                </div>
+            </div>
+            <div class="modal__content" id="thankyou">
+                <button data-button-id="close" class="modal__cross modal__cross-web">
+                    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
+                            fill="#A8B3B8" />
+                    </svg>
+                </button>
+                <h1 class="modal__title">Thanks for signing up!</h1>
+                <!-- <h2 class="modal__sub-title">Sub head maybe here that is not too long</h2> -->
+                <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                <div class="modal__button-wrap">
+                    <a class="modal__btn modal__btn--main" data-button-id="learn more button">Learn
+                        More!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // button click tracking
+        document.querySelectorAll('[data-button-id]').forEach(function (node) {
+            node.addEventListener('click', function () {
+                appboyBridge.logClick(node.dataset.buttonId);
+                appboyBridge.closeMessage();
+                appboyBridge.requestImmediateDataFlush();
+            });
+        });
+    </script>
+    <script>
+        var input = document.getElementById("phone");
+        var error = document.getElementById("error");
+        var optin = document.getElementById("optin");
+        var submit = document.getElementById("submit");
+        var thankyou = document.getElementById("thankyou");
+        var form = document.getElementById('form');
+        var iti = window.intlTelInput(input, {
+            nationalMode: true,
+            hiddenInput: 'full',
+            utilsScript: "https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5392f9088d62254859d1/original.js?1622823826"
+        });
+        window.intlTelInputGlobals.loadUtils("https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5392f9088d62254859d1/original.js?1622823826");
+        // prevent enter key submissions
+        $('html').bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+        optin.addEventListener('change', validate);
+        input.addEventListener('blur', validate);
+        input.addEventListener('keyup', validate);
+        submit.addEventListener('click', onSubmit);
+
+        function validate() {
+            var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+            var number = iti.getNumber().replace(/^\s+|\s+$/g, '');
+            // empty number
+            if (!number) {
+                reset();
+                return false;
+            }
+            // invalid phone number
+            if (!iti.isValidNumber()) {
+                var errorIndex = iti.getValidationError();
+                showError(errorMap[errorIndex] || 'Invalid number');
+                return false;
+            }
+
+            reset();
+
+            if (!optin.checked) {
+                return false;
+            }
+
+            hideError();
+
+            return true;
+        }
+
+        function onSubmit() {
+            if (!validate()) {
+                return;
+            }
+            var number = iti.getNumber();
+            appboyBridge.getUser().setPhoneNumber(number);
+            appboyBridge.logClick('added phone number');
+            appboyBridge.requestImmediateDataFlush();
+            form.style.display = 'none';
+            thankyou.style.display = 'block';
+        }
+
+        function showError(errorMessage) {
+            input.classList.add("error");
+            submit.setAttribute('disabled', 'true');
+            error.innerText = errorMessage;
+            error.style.visibility = 'visible';
+        }
+
+        function hideError() {
+            input.classList.remove("error");
+            error.style.visibility = 'hidden';
+            submit.removeAttribute('disabled');
+        }
+
+        function reset() {
+            hideError();
+            submit.setAttribute('disabled', 'true');
+        };
+    </script>
+</body>
+
+</html>
