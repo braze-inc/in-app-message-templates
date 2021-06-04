@@ -59,5 +59,5 @@ To view our legacy templates which used `.zip` files, [click here][5].
 [101]: braze-templates/1-braze-dashboard-carousel-modal
 [102]: braze-templates/2-braze-dashboard-simple-modal
 [103]: braze-templates/3-braze-dashboard-survey-modal
-[104]: braze-templates/4-sms-capture-modal
-[105]: braze-templates/5-email-capture-modal
+[104]: braze-templates/4-sms-capture
+[105]: braze-templates/5-email-capture
