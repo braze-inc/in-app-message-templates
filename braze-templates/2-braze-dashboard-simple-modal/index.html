@@ -155,6 +155,7 @@
             right: 20px;
             height: 34px;
             width: 34px;
+            cursor: pointer;
         }
 
         .modal__title {
@@ -182,14 +183,20 @@
 
         .modal__button-wrap {
             margin-top: auto;
-            margin-left: auto;
+            justify-content: space-around;
+            display: flex;
         }
 
         .modal__btn {
             font-family: var(--header-font-stack);
             font-weight: 700;
             color: inherit;
-            display: inline-block;
+            min-height: 50px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            min-width: 140px;
+            text-align: center;
         }
 
         .modal__btn--main {
@@ -294,7 +301,7 @@
             }
 
             .modal__cross {
-                right: none;
+                right: unset;
                 left: 14px;
             }
         }
@@ -315,25 +322,26 @@
                 overflow-y: scroll;
             }
         }
+
+        .image-1 {
+            background-image: url('https://via.placeholder.com/450');
+        }
     </style>
 </head>
 
 <body>
     <div class="overlay">
         <div class="modal">
-            <button onclick="appboyBridge.logClick();appboyBridge.closeMessage()"
-                class="modal__cross modal__cross-mobile">
+            <button data-button-id="close" class="modal__cross modal__cross-mobile">
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
                         fill="#A8B3B8" />
                 </svg>
             </button>
-            <!-- Replace url with link to image -->
-            <div class="modal__image" style="background-image: url('https://via.placeholder.com/450')"></div>
+            <div class="modal__image image-1"></div>
             <div class="modal__content">
-                <button onclick="appboyBridge.logClick();appboyBridge.closeMessage()"
-                    class="modal__cross modal__cross-web">
+                <button data-button-id="close" class="modal__cross modal__cross-web">
                     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M14.4175 16.8419L8.51467 10.9391C7.8452 10.2696 7.8452 9.18422 8.51467 8.51475C9.18414 7.84528 10.2696 7.84528 10.939 8.51475L16.8418 14.4176L22.7446 8.51475C23.4141 7.84528 24.4995 7.84528 25.169 8.51475C25.8385 9.18422 25.8385 10.2696 25.169 10.9391L19.2662 16.8419L25.169 22.7447C25.8385 23.4142 25.8385 24.4996 25.169 25.1691C24.4995 25.8386 23.4141 25.8386 22.7446 25.1691L16.8418 19.2663L10.939 25.1691C10.2696 25.8386 9.18414 25.8386 8.51467 25.1691C7.8452 24.4996 7.8452 23.4142 8.51467 22.7447L14.4175 16.8419Z"
@@ -347,14 +355,23 @@
                 <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                 <div class="modal__button-wrap">
-                    <a href="#" onclick="appboyBridge.logClick('1');" class="modal__btn modal__btn--secondary">Secondary
+                    <a href="#" class="modal__btn modal__btn--secondary" data-button-id="1">Secondary
                         Action</a>
-                    <a href="#" onclick="appboyBridge.logClick('0');" class="modal__btn modal__btn--main">Primary
+                    <a href="#" class="modal__btn modal__btn--main" data-button-id="0">Primary
                         Action</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('[data-button-id]').forEach(function (node) {
+            node.addEventListener('click', function () {
+                appboyBridge.logClick(node.dataset.buttonId);
+                appboyBridge.closeMessage();
+            });
+        });
+    </script>
 </body>
 
 </html>
