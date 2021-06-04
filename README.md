@@ -34,6 +34,7 @@ The following templates are all mobile and desktop responsive! Simply swap out t
 | [Braze Simple Modal][102] | :iphone: :computer: | A single image and text modal | [<img alt="screenshot" src="braze-templates/2-braze-dashboard-simple-modal/screenshot.png" width="200" />][102] |
 | [Braze Survey Modal][103] | :iphone: :computer: | A survey templates which logs custom attributes for retargeting. | [<img alt="screenshot" src="braze-templates/3-braze-dashboard-survey-modal/mobile.png" height="300"/>][103] |
 | [Braze SMS Modal][103] | :iphone: :computer: | Collect phone numbers to use with Braze SMS. | [<img alt="screenshot" src="braze-templates/4-sms-capture-modal/screenshot.gif" width="300"/>][103] |
+| [Braze Email Capture Modal][103] | :iphone: :computer: | Collect email addresses to use within Braze. | [<img alt="screenshot" src="braze-templates/5-email-capture-modal/screenshot.gif" width="300"/>][103] |
 
 ## Community Gallery
 
