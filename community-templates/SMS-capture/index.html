@@ -600,14 +600,20 @@
             var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
             var number = iti.getNumber().replace(/^\s+|\s+$/g, '');
             // empty number
-            if (!number || !optin.checked) {
+            if (!number) {
                 reset();
                 return false;
             }
-            // invalid phonenumber
+            // invalid phone number
             if (!iti.isValidNumber()) {
                 var errorIndex = iti.getValidationError();
                 showError(errorMap[errorIndex] || 'Invalid number');
+                return false;
+            }
+
+            reset();
+
+            if (!optin.checked) {
                 return false;
             }
 
