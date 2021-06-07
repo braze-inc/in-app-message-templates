@@ -6,14 +6,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up For SMS</title>
-
-    <link rel="stylesheet"
-        href="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba51719f0008703e7f9a6c/original.css?1622823281">
-    <script
-        src="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5172f9088d5409485a16/original.js?1622823282"></script>
-    <script
-        src="https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba51744941b5318d0ba85f/original.js?1622823284"></script>
+    <title>Email Signup</title>
     <!--
         Instructions:
         [ ] Copy this HTML into the Braze Dashboard IAM message composer
@@ -22,19 +15,8 @@
         [ ] Change button text
     -->
 
-    <!-- phone input  -->
+    <!-- email input  -->
     <style>
-        .iti__flag {
-            background-image: url("https://appboy-images.com/appboy/communication/assets/image_assets/images/60ba5190f9088d2b4c48594b/original.png?1622823312");
-        }
-
-        @media (-webkit-min-device-pixel-ratio: 2),
-        (min-resolution: 192dpi) {
-            .iti__flag {
-                background-image: url("https://appboy-images.com/appboy/communication/assets/image_assets/images/60ba51a19f000878b37f9a4f/original.png?1622823329");
-            }
-        }
-
         #error {
             margin-top: 4px;
             font-size: 14px;
@@ -46,31 +28,13 @@
             border: 1px solid #FF7C7C;
         }
 
-        input[type="tel"]:focus {
+        input[type="email"]:focus {
             border-color: var(--accent-color);
             border-width: 2px;
             outline: 0 none;
         }
 
-        .iti__hide {
-            display: none;
-        }
-
-        pre {
-            margin: 0 !important;
-            display: inline-block;
-        }
-
-        .token.operator,
-        .token.entity,
-        .token.url,
-        .language-css .token.string,
-        .style .token.string,
-        .token.variable {
-            background: none;
-        }
-
-        input {
+        input[type="email"] {
             height: 35px;
             margin: 0;
             padding: 6px 12px;
@@ -523,7 +487,7 @@
                 <p class="modal__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
 
                 <div class="input__container">
-                    <input id="phone" type="tel" name="phone">
+                    <input id="email" type="email" name="email" placeholder="Email Address">
                     <div class="modal__error-message" id="error">placeholder</div>
                 </div>
                 <div class="modal__survey-list">
@@ -571,21 +535,16 @@
         });
     </script>
     <script>
-        var input = document.getElementById("phone");
+        var input = document.getElementById("email");
         var error = document.getElementById("error");
         var optin = document.getElementById("optin");
         var submit = document.getElementById("submit");
         var thankyou = document.getElementById("thankyou");
         var form = document.getElementById('form');
-        var iti = window.intlTelInput(input, {
-            nationalMode: true,
-            hiddenInput: 'full',
-            utilsScript: "https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5392f9088d62254859d1/original.js?1622823826"
-        });
-        window.intlTelInputGlobals.loadUtils("https://appboy-images.com/appboy/communication/assets/code_assets/files/60ba5392f9088d62254859d1/original.js?1622823826");
+
         // prevent enter key submissions
-        $('html').bind('keypress', function (e) {
-            if (e.keyCode == 13) {
+        document.addEventListener('keypress', function (e) {
+            if (e.keyCode === 13) {
                 return false;
             }
         });
@@ -595,18 +554,24 @@
         input.addEventListener('keyup', validate);
         submit.addEventListener('click', onSubmit);
 
+        function getEmail() {
+            return input.value.replace(/^\s+|\s+$/g, '').toLowerCase();
+        }
+
+        function isValidEmail(email) {
+            return /^.+@.+\..+$/.test(email)
+        }
+
         function validate() {
-            var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-            var number = iti.getNumber().replace(/^\s+|\s+$/g, '');
-            // empty number
-            if (!number) {
+            var email = getEmail();
+            // empty email
+            if (!email) {
                 reset();
                 return false;
             }
-            // invalid phone number
-            if (!iti.isValidNumber()) {
-                var errorIndex = iti.getValidationError();
-                showError(errorMap[errorIndex] || 'Invalid number');
+            // invalid email
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email.');
                 return false;
             }
 
@@ -625,9 +590,9 @@
             if (!validate()) {
                 return;
             }
-            var number = iti.getNumber();
-            appboyBridge.getUser().setPhoneNumber(number);
-            appboyBridge.logClick('added phone number');
+            var email = getEmail();
+            appboyBridge.getUser().setEmail(email);
+            appboyBridge.logClick('added email address');
             appboyBridge.requestImmediateDataFlush();
             form.style.display = 'none';
             thankyou.style.display = 'block';
