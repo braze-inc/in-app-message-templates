@@ -2,7 +2,7 @@
 
 * Supports multiple country codes and validation
 * Sets a phone number to the current user
-* add "initialCountry: 'au'," as an argument to the intlTelInput javascript function to change the initial country.
+* To set the initial country, add `initialCountry: 'au'` as an argument to the `intlTelInput`:
 ``` javascript
 var iti = window.intlTelInput(input, {
     nationalMode: true,
