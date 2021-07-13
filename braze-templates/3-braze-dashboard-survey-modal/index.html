@@ -354,7 +354,9 @@
         choices.forEach(function (input) {
           const customAttributeName = input.dataset.customAttributeName;
           const customAttributeValue = input.dataset.customAttributeValue;
-          appboyBridge.getUser().setCustomUserAttribute(customAttributeName, customAttributeValue);
+          if (input.checked) {
+            appboyBridge.getUser().setCustomUserAttribute(customAttributeName, customAttributeValue);
+          }
         });
 
         appboyBridge.requestImmediateDataFlush();
