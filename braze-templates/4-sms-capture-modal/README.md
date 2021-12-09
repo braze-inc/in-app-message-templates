@@ -1,3 +1,5 @@
+> ⚠️ Note: Subscription Groups were introduced in Android SDK v15.0.0, Web SDK v3.4.0, and iOS SDK v4.3.3. Please ensure your SDKs are up to date, or apply filters to your message's targeting.
+
 <img alt="screenshot" src="screenshot.gif" height="500"/>
 
 * Supports multiple country codes and validation

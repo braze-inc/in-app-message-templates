@@ -20,6 +20,7 @@
         [ ] Upload and swap out all images (eg: https://via.placeholder.com/450 -> your new image URL)
         [ ] Change the `href="#"` to `href="https://your-link" or `href="your://deeplink"`
         [ ] Change button text
+        [ ] Set the variable subscriptionGroupId as your target Subscription Group ID  
     -->
 
     <!-- phone input  -->
@@ -571,6 +572,7 @@
         });
     </script>
     <script>
+        var subscriptionGroupId = "ENTER YOUR SUBSCRIPTION GROUP ID FOUND IN DASHBOARD";
         var input = document.getElementById("phone");
         var error = document.getElementById("error");
         var optin = document.getElementById("optin");
@@ -627,6 +629,7 @@
             }
             var number = iti.getNumber();
             appboyBridge.getUser().setPhoneNumber(number);
+            appboyBridge.getUser().addToSubscriptionGroup(subscriptionGroupId);
             appboyBridge.logClick('added phone number');
             appboyBridge.requestImmediateDataFlush();
             form.style.display = 'none';
