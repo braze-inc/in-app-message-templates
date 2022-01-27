@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script>
+      var SURVEY_ID = 'my_survey_id';
+      var QUANT_QUESTION = 'Overall, how satisfied are you with $product_name?';
+      var QUAL_QUESTION =
+        'Please share any additional feedback on how we can improve $product_name.';
+      var AVATAR_IMAGE =
+        'https://appboy-images.com/appboy/communication/assets/image_assets/images/5ecfe4358356682f445de9ee/original.png'; // optional
+      var THANKYOU_TEXT = ''; // optional
+      var SUBHEADER_TEXT = ''; // optional
+      var SUBHEADER_TEXT = ''; // optional
+      var CHOICES = CHOICES || [
+        'Very dissatisfied', // 1
+        'Somewhat dissatisfied', // 2
+        'Neither satisfied nor dissatisfied', // 3
+        'Somewhat satisfied', // 4
+        'Very satisfied', // 5
+      ]; // can remove or edit choice names
+    </script>
+
+    <script>
+      // these are defaults which should be re-defined in the individual survey
+      var QUANT_QUESTION =
+        QUANT_QUESTION ||
+        console.error('You are missing the QUANT_QUESTION variable') ||
+        'You are missing the QUANT_QUESTION variable';
+      var QUAL_QUESTION =
+        QUAL_QUESTION ||
+        console.error('You are missing the QUAL_QUESTION variable') ||
+        'You are missing the QUAL_QUESTION variable';
+      var SURVEY_ID =
+        SURVEY_ID ||
+        console.error('You are missing the SURVEY_ID variable') ||
+        'You are missing the SURVEY_ID variable';
+      var THANKYOU_TEXT = THANKYOU_TEXT || 'Thanks for your feedback!';
+      var SUBHEADER_TEXT = SUBHEADER_TEXT || '';
+      var AVATAR_IMAGE = AVATAR_IMAGE || '';
+    </script>
+    <script>
+      // this section helps with dashboard previews
+      (function () {
+        var isDashboard = (function () {
+          try {
+            void window.top.document;
+            return false;
+          } catch (e) {
+            return true;
+          }
+        })();
+
+        window.iam_config = {
+          isDashboard: isDashboard || location.protocol === 'file:',
+          root: isDashboard
+            ? document.documentElement
+            : window.top.document.querySelector('.ab-iam-root'),
+          iframe: isDashboard
+            ? document.documentElement
+            : window.top.document.querySelector('iframe.ab-in-app-message'),
+          parentWindow: isDashboard ? window : window.top,
+        };
+
+        function resize() {
+          setTimeout(function () {
+            var height = document.querySelector('.container').offsetHeight + 60;
+            window.iam_config.iframe.style.height = height + 'px';
+          });
+        }
+
+        // initial size
+        resize();
+        // resize on interactions
+        document.body.onclick = resize;
+        // resize when parent is resized
+        window.iam_config.parentWindow.onresize = resize;
+      })();
+    </script>
+    <script>
+      (function () {
+        // adjust size of the parent iframe
+        Object.assign(window.iam_config.iframe.style, {
+          bottom: '30px',
+          right: '25px',
+          width: 'auto',
+          position: 'fixed',
+          zIndex: '999',
+          border: 'unset',
+        });
+        // allows analytics to be captured by web SDK
+        window.iam_config.iframe.setAttribute('class', 'ab-start-hidden');
+
+        if (!window.iam_config.isDashboard) {
+          setTimeout(function () {
+            // allows scrolling while message is displayed
+            window.top.document.body.classList.remove('ab-pause-scrolling');
+            window.iam_config.root.setAttribute('class', '');
+          });
+        }
+      })();
+    </script>
+    <style>
+      @font-face {
+        font-family: Seilec;
+        src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5ec6b43c1f3ab876307916fd/original.otf')
+          format('opentype');
+      }
+
+      @font-face {
+        font-family: Seilec;
+        font-weight: bold;
+        src: url('https://appboy-images.com/appboy/communication/assets/font_assets/files/5ec6b43c19b50065736cd3fb/original.otf')
+          format('opentype');
+      }
+
+      html {
+        font-family: 'Seilec', helvetica, arial, sans-serif;
+        overflow: hidden;
+      }
+
+      body {
+        margin: 0;
+        padding: 60px 0 0;
+      }
+
+      .container {
+        position: relative;
+        padding: 40px 0 0px;
+        background: #ffffff;
+        border: 2px solid #d7deee;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+
+      .header {
+        font-size: 17px;
+        line-height: 25px;
+        font-weight: bold;
+        padding: 20px 20px 15px;
+        margin: 0;
+        color: #008294;
+      }
+
+      .subheader {
+        text-align: left;
+        padding: 1px 1px 1px 20px;
+        font-size: 10px;
+        display: none;
+      }
+
+      .border-top {
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+      }
+
+      .choices {
+        margin-top: 8px;
+      }
+
+      .choice {
+        left: 0;
+        font-size: 14px;
+        line-height: 18px;
+        color: #101b24;
+        cursor: pointer;
+        padding: 16px 4px 12px 50px;
+        right: 0;
+      }
+
+      .choice.selected {
+        color: #3a7b3a;
+        font-weight: bold;
+      }
+
+      .choice.selected:after {
+        content: '×';
+        float: right;
+        font-size: 25px;
+        margin-right: 14px;
+        margin-top: 2px;
+      }
+
+      .choice:hover {
+        background: #f3f3f3;
+      }
+
+      .choice:hover:before {
+        opacity: 1;
+      }
+
+      .choice:before {
+        content: '';
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        left: 14px;
+        margin-top: -5px;
+        border-radius: 50%;
+        opacity: 0.7;
+      }
+
+      .choice[data-score='5']:before {
+        background: url('https://appboy-images.com/appboy/communication/assets/image_assets/images/5ec2fcd25b99ac62374445f3/original.png')
+          no-repeat;
+      }
+
+      .choice[data-score='4']:before {
+        background: url('https://appboy-images.com/appboy/communication/assets/image_assets/images/5ec2fcdb99e8af03f0537da1/original.png')
+          no-repeat;
+      }
+
+      .choice[data-score='3']:before {
+        background: url('https://appboy-images.com/appboy/communication/assets/image_assets/images/5ec2fce4af874e7418d7a398/original.png')
+          no-repeat;
+      }
+
+      .choice[data-score='2']:before {
+        background: url('https://appboy-images.com/appboy/communication/assets/image_assets/images/5ec2fcea6a8d637626330c6e/original.png')
+          no-repeat;
+      }
+
+      .choice[data-score='1']:before {
+        background: url('https://appboy-images.com/appboy/communication/assets/image_assets/images/5ec2fcf27b648d498c3196b3/original.png')
+          no-repeat;
+      }
+
+      #close-button {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 10px;
+        padding: 1px;
+        border-radius: 50%;
+        top: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 26px;
+      }
+
+      .question {
+        font-size: 14px;
+        padding: 14px 14px 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .feedback {
+        height: 94px;
+        border: solid 2px #c4c4c4;
+        box-sizing: border-box;
+        resize: none;
+        align-self: stretch;
+        line-height: 1.5;
+        max-width: 100%;
+        min-height: 32px;
+        outline: none;
+        padding: 4px;
+        width: calc(100% - 16px);
+        margin: 4px 8px;
+        border-radius: 4px;
+        font-family: 'Seilec';
+      }
+
+      .feedback:focus {
+        border-color: #3a7b3a;
+      }
+
+      .submit-button {
+        width: calc(100% - 16px);
+        height: 41px;
+        background: #008294;
+        border-radius: 3px;
+        font-size: 16px;
+        line-height: 34px;
+        text-align: center;
+        color: #ffffff;
+        margin: 11px 8px 20px;
+        cursor: pointer;
+        border: none;
+        text-transform: uppercase;
+      }
+
+      .feedback,
+      .submit-button,
+      .question {
+        display: none;
+      }
+
+      .show-submit .feedback,
+      .show-submit .submit-button,
+      .show-submit .question {
+        display: block;
+      }
+
+      .confirmation {
+        display: none;
+      }
+
+      .show-confirmation .confirmation {
+        display: block;
+      }
+
+      .show-confirmation #survey-container {
+        display: none;
+      }
+
+      #avatar {
+        width: 40px;
+        height: 60px;
+        margin: 15px auto -10px;
+        display: block;
+      }
+
+      #avatar-container {
+        position: absolute;
+        top: -45px;
+        width: 90px;
+        height: 90px;
+        left: calc(50% - 45px);
+        border: solid 1px #e0e0e0;
+        border-radius: 50%;
+        background: white;
+        display: none;
+      }
+    </style>
+
+    <div class="container">
+      <div id="avatar-container">
+        <img id="avatar" src="" />
+      </div>
+      <div id="survey-container">
+        <h5 id="quant-question" class="header"></h5>
+        <p id="subheader" class="subheader"></p>
+        <div class="choices">
+          <div class="choice" data-score="5"></div>
+          <div class="choice" data-score="4"></div>
+          <div class="choice" data-score="3"></div>
+          <div class="choice" data-score="2"></div>
+          <div class="choice" data-score="1"></div>
+        </div>
+        <h5 id="qual-question" class="question border-top"></h5>
+        <textarea
+          id="qual-feedback"
+          class="feedback"
+          maxlength="250"></textarea>
+        <button
+          id="submit-button"
+          type="button"
+          title="submit"
+          class="submit-button">
+          Submit
+        </button>
+      </div>
+
+      <div class="confirmation">
+        <h5 id="thank-you" class="header" style="text-align: center"></h5>
+      </div>
+
+      <button type="button" title="close" id="close-button">×</button>
+    </div>
+
+    <script>
+      (function () {
+        var quant = document.getElementById('quant-question');
+        var qual = document.getElementById('qual-question');
+        var container = document.getElementById('survey-container');
+        var submitButton = document.getElementById('submit-button');
+        var subheader = document.getElementById('subheader');
+        var closeButton = document.getElementById('close-button');
+        var thankyou = document.getElementById('thank-you');
+        var choices = document.querySelectorAll('.choice');
+        var avatar = document.getElementById('avatar');
+        var avatarContainer = document.getElementById('avatar-container');
+
+        quant.innerHTML = QUANT_QUESTION;
+        qual.innerHTML = QUAL_QUESTION;
+        thankyou.innerHTML = THANKYOU_TEXT;
+        if (SUBHEADER_TEXT) {
+          subheader.innerHTML = SUBHEADER_TEXT;
+          subheader.style.display = 'block';
+        }
+        if (AVATAR_IMAGE) {
+          avatar.src = AVATAR_IMAGE;
+          avatarContainer.style.display = 'block';
+        }
+
+        choices.forEach(function (node) {
+          var score = +node.dataset.score;
+          var text = CHOICES[score - 1];
+          if (text) {
+            node.innerHTML = text;
+          } else {
+            node.parentNode.removeChild(node);
+            return;
+          }
+
+          node.onclick = function () {
+            var alreadySelected = document.querySelector('.choice.selected');
+            if (alreadySelected) {
+              resetChoices();
+            } else {
+              showSubmitButton();
+              setScore(score);
+            }
+          };
+        });
+
+        submitButton.onclick = function () {
+          onSubmit();
+          showConfirmation();
+        };
+
+        function resetChoices() {
+          hideSubmitButton();
+          choices.forEach(function (node) {
+            node.classList.remove('selected');
+            node.style.display = 'block';
+          });
+        }
+
+        function onSubmit() {
+          document.body.classList.add('survey-submitted');
+          var selected = document.querySelector('.choice.selected');
+          var score = selected.dataset.score;
+          var feedback = document.querySelector('.feedback').value || '';
+          appboyBridge
+            .getUser()
+            .setCustomUserAttribute('survey.' + SURVEY_ID + '.score', score);
+          if (feedback) {
+            appboyBridge
+              .getUser()
+              .setCustomUserAttribute(
+                'survey.' + SURVEY_ID + '.feedback',
+                feedback
+              );
+          }
+
+          appboyBridge.logCustomEvent('survey.completed', {
+            score: score,
+            feedback: feedback,
+            survey_id: SURVEY_ID,
+            url: window.location.href,
+          });
+
+          var sentiment = CHOICES[score - 1];
+
+          appboyBridge.logClick(score + ' - ' + sentiment);
+          appboyBridge.requestImmediateDataFlush();
+        }
+
+        closeButton.onclick = function () {
+          var selected = document.querySelector('.choice.selected');
+          if (!document.body.classList.contains('survey-submitted')) {
+            if (selected) {
+              onSubmit();
+            } else {
+              appboyBridge.logClick('close');
+            }
+          }
+          setTimeout(function () {
+            appboyBridge.closeMessage();
+          });
+        };
+
+        function showSubmitButton() {
+          if (!document.body.classList.contains('show-submit')) {
+            document.body.classList.add('show-submit');
+          }
+        }
+
+        function hideSubmitButton() {
+          document.body.classList.remove('show-submit');
+        }
+
+        function showConfirmation() {
+          document.body.classList.remove('show-submit');
+          document.body.classList.add('show-confirmation');
+          document.body.click();
+        }
+
+        function setScore(score) {
+          choices.forEach(function (node) {
+            if (+node.dataset.score === +score) {
+              node.classList.add('selected');
+            } else {
+              node.classList.remove('selected');
+              node.style.display = 'none';
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

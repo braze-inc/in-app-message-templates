@@ -35,6 +35,7 @@ The following templates are all mobile and desktop responsive! Simply swap out t
 | [Braze Survey Modal][103] | :iphone: :computer: | A survey templates which logs custom attributes for retargeting. | [<img alt="screenshot" src="braze-templates/3-braze-dashboard-survey-modal/mobile.png" height="300"/>][103] |
 | [Braze SMS Modal][104] | :iphone: :computer: | Collect phone numbers to use with Braze SMS. | [<img alt="screenshot" src="braze-templates/4-sms-capture-modal/screenshot.gif" width="300"/>][103] |
 | [Braze Email Capture Modal][105] | :iphone: :computer: | Collect email addresses to use within Braze. | [<img alt="screenshot" src="braze-templates/5-email-capture-modal/screenshot.gif" width="300"/>][103] |
+| [Braze NPS][106] | :computer: | NPS Survey for quantitative and qualitative feedback. | [<img alt="screenshot" src="braze-templates/6-braze-nps/screenshot.gif" width="300" />][106]
 
 ## Community Gallery
 
@@ -61,3 +62,4 @@ To view our legacy templates which used `.zip` files, [click here][5].
 [103]: braze-templates/3-braze-dashboard-survey-modal
 [104]: braze-templates/4-sms-capture-modal
 [105]: braze-templates/5-email-capture-modal
+[106]: braze-templates/6-braze-nps
