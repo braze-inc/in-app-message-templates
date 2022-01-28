@@ -12,4 +12,6 @@ Replace the following variables to customize your NPS Survey:
 | `SUBHEADER_TEXT` | An optional smaller text to display underneath the initial question.                    | No        |
 | `CHOICES`        | An ordered list of choice names. You can remove choices for fewer options.              | No        |
 
+# Demo
+
 <img alt="screenshot" src="screenshot.gif" height="500"/>
