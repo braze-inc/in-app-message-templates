@@ -1,7 +1,10 @@
-<img src="https://info.braze.com/rs/367-GUY-242/images/Braze-Logotype_Black.png" width="200" style="margin: auto;">
+# 🚀 Braze now supports a Drag-and-Drop visual editor!
 
-Braze In-App & In-Browser Message Templates
-==========
+#### This repository is no longer maintained. Please use the new [drag-and-drop in-app message editor](https://www.braze.com/docs/user_guide/message_building_by_channel/in-app_messages/drag_and_drop) instead.
+
+===============
+
+
 
 # Overview
 
